@@ -14,7 +14,7 @@ bool reverse(reverse_string_server_and_client::reverse::Request &req,
 }
 
 int main(int argc, char **argv) {
-    ros::init(argc, argv, "reverse_server");
+    ros::init(argc, argv, "reverse_string_server");
     ros::NodeHandle n;
     ros::ServiceServer service = n.advertiseService("reverse_string", reverse);
     ROS_INFO("Ready to reverse.");
