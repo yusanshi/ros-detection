@@ -1,4 +1,4 @@
-#include <ros/ros.h>
+#include "ros/ros.h"
 #include "std_msgs/String.h"
 
 class ReverseStringHandler {
@@ -6,12 +6,12 @@ class ReverseStringHandler {
     ReverseStringHandler() {
         pub = n.advertise<std_msgs::String>("/reversed_string", 1);
         sub = n.subscribe("/original_string", 1,
-                            &ReverseStringHandler::callback, this);
+                          &ReverseStringHandler::callback, this);
     }
 
     void callback(const std_msgs::String::ConstPtr& input) {
         std::string temp = input->data;
-        std::reverse(temp.begin(),temp.end());
+        std::reverse(temp.begin(), temp.end());
         std_msgs::String output;
         output.data = temp;
         pub.publish(output);

@@ -6,7 +6,7 @@ void subscribe_callback(const std_msgs::String::ConstPtr& msg) {
 }
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "string_listener");
+    ros::init(argc, argv, "string_subscriber");
 
     ros::NodeHandle n;
 

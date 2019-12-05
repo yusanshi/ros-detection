@@ -20,8 +20,8 @@ include_directories(include
 add_executable(reverse_string_handler src/handler.cpp)
 target_link_libraries(reverse_string_handler ${catkin_LIBRARIES})
 
-add_executable(string_publisher src/publisher.cpp)
-target_link_libraries(string_publisher ${catkin_LIBRARIES})
+add_executable(reverse_string_publisher src/publisher.cpp)
+target_link_libraries(reverse_string_publisher ${catkin_LIBRARIES})
 
-add_executable(string_listener src/listener.cpp)
-target_link_libraries(string_listener ${catkin_LIBRARIES})
+add_executable(reverse_string_subscriber src/subscriber.cpp)
+target_link_libraries(reverse_string_subscriber ${catkin_LIBRARIES})
