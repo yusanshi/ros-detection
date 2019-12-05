@@ -14,5 +14,6 @@ rosrun zmq_reverse_string_handler zmq_reverse_string_subscriber
 rosrun zmq_reverse_string_handler zmq_reverse_string_publisher
 
 # Open another terminal again
-python3 ./zmq_reverse_string_handler/src/zmq_server.py
+# cd into current workspace
+python3 ./src/zmq_reverse_string_handler/src/zmq_server.py
 ```
