@@ -10,8 +10,8 @@ class ReverseStringHandler {
                             &ReverseStringHandler::callback, this);
         zmq_ctx_ = std::unique_ptr<zmq::context_t>(new zmq::context_t(1));
         zmq_sock_ = std::unique_ptr<zmq::socket_t>(
-            new zmq::socket_t(*zmq_ctx_, ZMQ_REQ));        // TODO
-        zmq_sock_.get()->connect("ipc:///tmp/reverse_string.ipc");  // TODO
+            new zmq::socket_t(*zmq_ctx_, ZMQ_REQ));       
+        zmq_sock_.get()->connect("ipc:///tmp/reverse_string.ipc"); 
     }
 
     void callback(const std_msgs::String::ConstPtr& input) {
