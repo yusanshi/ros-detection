@@ -1,27 +1,23 @@
 from __future__ import division
 
-from yolo_e1.models import *
-from yolo_e1.utils.utils import *
-from yolo_e1.utils.datasets import *
+from yolo_e1.models import Darknet
+from yolo_e1.utils.utils import rescale_boxes, non_max_suppression, load_classes
+from yolo_e1.utils.datasets import pad_to_square, resize
 
-import os
-import sys
+import random
 import time
 import datetime
-import argparse
 import numpy as np
 
 from PIL import Image
 
 import torch
-from torch.utils.data import DataLoader
-from torchvision import datasets
 from torch.autograd import Variable
-
+import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import NullLocator
-from config import HEIGHT, WIDTH
+from config import WIDTH
 
 
 class Yolo:

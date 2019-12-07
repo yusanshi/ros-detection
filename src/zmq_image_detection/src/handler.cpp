@@ -17,8 +17,10 @@ class ImageDetectionHandler {
         sub_ = it_.get()->subscribe(image_topic, 1,
                                     &ImageDetectionHandler::callback,
                                     this);  // TODO what if remove get()?
-        ROS_INFO("Detection result of topic %s is being published to topic %s",
-                 image_topic.c_str(), result_topic.c_str());
+        ROS_INFO(
+            "Detection result of topic %s is being published to topic %s, "
+            "using ZMQ ipc://%s",
+            image_topic.c_str(), result_topic.c_str(), ipc_file_path.c_str());
 
         zmq_ctx_ = std::unique_ptr<zmq::context_t>(new zmq::context_t(1));
         zmq_sock_ = std::unique_ptr<zmq::socket_t>(
@@ -76,8 +78,8 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "zmq_image_detection_handler");
     if (argc != 4) {
         ROS_ERROR(
-            "Usage: zmq_image_detection_handler <image topic> \
-<result topic> <ipc file path>");
+            "Usage: zmq_image_detection_handler <image topic> <result topic> "
+            "<ipc file path>");
         return 1;
     }
 

@@ -1,8 +1,6 @@
 import zmq
 import fire
-import cv2
 import numpy as np
-from PIL import Image
 from config import HEIGHT, WIDTH
 from yolo_e1_ import Yolo
 
