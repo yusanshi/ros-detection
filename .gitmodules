@@ -1,5 +1,5 @@
-[submodule "src/zmq_image_detection/src/zmq_server/yolo"]
-	path = src/zmq_image_detection/src/zmq_server/yolo
+[submodule "src/zmq_image_detection/src/zmq_server/yolo_e1"]
+	path = src/zmq_image_detection/src/zmq_server/yolo_e1
 	url = https://github.com/eriklindernoren/PyTorch-YOLOv3
 [submodule "src/zmq_image_detection/src/zmq_server/yolo_e2"]
 	path = src/zmq_image_detection/src/zmq_server/yolo_e2

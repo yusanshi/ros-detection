@@ -40,7 +40,6 @@ class ImageDetectionHandler {
         auto img_seq = img_header.seq;
         auto img_stamp = img_header.stamp;
         auto img_data = img->image;
-        //TODO encode into jpg, or use compressed topic?
 
         // Some helpful output
         // std::cout << "Row and col:" << img_data.rows << " " << img_data.cols

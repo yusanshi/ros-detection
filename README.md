@@ -7,3 +7,5 @@
 [Reverse String Handler](./src/reverse_string_handler)
 
 [ZMQ Reverse String Handler](./src/zmq_reverse_string_handler)
+
+[ZMQ Image Detection](./src/zmq_image_detection)
