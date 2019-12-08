@@ -3,11 +3,13 @@ project(zmq_image_detection)
 
 add_compile_options(-std=c++11)
 
+find_package(autoware_msgs REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
-  image_transport
   roscpp
   sensor_msgs
+  autoware_msgs
   std_msgs
 )
 
@@ -15,7 +17,12 @@ find_package(OpenCV REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS cv_bridge image_transport roscpp sensor_msgs std_msgs
+  CATKIN_DEPENDS
+  cv_bridge
+  roscpp
+  sensor_msgs
+  autoware_msgs
+  std_msgs
 )
 
 
@@ -27,5 +34,4 @@ add_executable(zmq_image_detection_handler src/handler.cpp)
 target_link_libraries(zmq_image_detection_handler ${catkin_LIBRARIES})
 target_link_libraries(zmq_image_detection_handler -lzmq) # Link ZMQ
 target_link_libraries(zmq_image_detection_handler ${OpenCV_LIBS}) # Link OpenCV
-
-
+add_dependencies(zmq_image_detection_handler autoware_msgs_generate_messages_cpp)

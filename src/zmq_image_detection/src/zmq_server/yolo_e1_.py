@@ -1,30 +1,30 @@
 from __future__ import division
 
 from yolo_e1.models import Darknet
-from yolo_e1.utils.utils import rescale_boxes, non_max_suppression, load_classes
+from yolo_e1.utils.utils import rescale_boxes, non_max_suppression, load_classes, display
 from yolo_e1.utils.datasets import pad_to_square, resize
 
-import random
+
 import time
 import datetime
 import numpy as np
+
 
 from PIL import Image
 
 import torch
 from torch.autograd import Variable
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from matplotlib.ticker import NullLocator
-from config import WIDTH
+
+from config import HEIGHT, WIDTH
 
 
 class Yolo:
-    def __init__(self, img_size=WIDTH,
+    def __init__(self,
+                 img_size=max(HEIGHT, WIDTH),
                  nms_thres=0.4,
                  conf_thres=0.8,
-                 show_result=False,
+                 display_result=False,
                  model_def='yolo_e1/config/yolov3.cfg',
                  weights_path='yolo_e1/weights/yolov3.weights',
                  class_path='yolo_e1/data/coco.names'
@@ -32,7 +32,7 @@ class Yolo:
         self.img_size = img_size
         self.nms_thres = nms_thres
         self.conf_thres = conf_thres
-        self.show_result = show_result
+        self.display_result = display_result
         self.model_def = model_def
         self.weights_path = weights_path
         self.class_path = class_path
@@ -71,55 +71,30 @@ class Yolo:
         prev_time = current_time
         print('Inference Time: %s' % inference_time)
 
-        if self.show_result:
-            # Bounding-box colors
-            cmap = plt.get_cmap('tab20b')
-            colors = [cmap(i) for i in np.linspace(0, 1, 20)]
-            # Create plot
-            plt.figure()
-            ax = plt.axes()
-            ax.imshow(np_array)
+        result = []
 
-            # Draw bounding boxes and labels of detections
-            if detections is not None:
-                # Rescale boxes to original image
-                detections = rescale_boxes(
-                    detections, self.img_size, np_array.shape[:2])
-                unique_labels = detections[:, -1].cpu().unique()
-                n_cls_preds = len(unique_labels)
-                bbox_colors = random.sample(colors, n_cls_preds)
-                for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
-                    print('\t+ Label: %s, Conf: %.5f' %
-                          (self.classes[int(cls_pred)], cls_conf.item()))
+        if detections is not None:
+            # Rescale boxes to original image
+            detections = rescale_boxes(
+                detections, self.img_size, np_array.shape[:2])
 
-                    box_w = x2 - x1
-                    box_h = y2 - y1
+            for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
+                result.append(
+                    {'x': int(x1),
+                     'y': int(y1),
+                     'width': int(x2 - x1),
+                     'height': int(y2 - y1),
+                     'score': float((conf + cls_conf) / 2),
+                     'label': str(self.classes[int(cls_pred)])
+                     }
+                )
 
-                    color = bbox_colors[int(
-                        np.where(unique_labels == int(cls_pred))[0])]
-                    # Create a Rectangle patch
-                    bbox = patches.Rectangle(
-                        (x1, y1), box_w, box_h, linewidth=2, edgecolor=color, facecolor='none')
-                    # Add the bbox to the plot
-                    ax.add_patch(bbox)
-                    # Add label
-                    plt.text(
-                        x1,
-                        y1,
-                        s=self.classes[int(cls_pred)],
-                        color='white',
-                        verticalalignment='top',
-                        bbox={'color': color, 'pad': 0},
-                    )
+            if self.display_result:
+                display(np_array, detections, self.classes)
 
-            # Show generated image with detections
-            plt.axis('off')
-            plt.gca().xaxis.set_major_locator(NullLocator())
-            plt.gca().yaxis.set_major_locator(NullLocator())
-            plt.show()
-            plt.close()
+        return result
 
 
 if __name__ == '__main__':
-    yolo = Yolo(show_result=True)
-    yolo.detect(np.array(Image.open('test.png')))
+    yolo = Yolo(display_result=True)
+    print(yolo.detect(np.array(Image.open('test.png'))))

@@ -1,6 +1,12 @@
 [submodule "src/zmq_image_detection/src/zmq_server/yolo_e1"]
 	path = src/zmq_image_detection/src/zmq_server/yolo_e1
 	url = https://github.com/eriklindernoren/PyTorch-YOLOv3
-[submodule "src/zmq_image_detection/src/zmq_server/yolo_e2"]
-	path = src/zmq_image_detection/src/zmq_server/yolo_e2
-	url = https://github.com/pjreddie/darknet
+[submodule "src/autoware.ai/visualization"]
+	path = src/autoware.ai/visualization
+	url = https://gitlab.com/autowarefoundation/autoware.ai/visualization
+[submodule "src/autoware.ai/common"]
+	path = src/autoware.ai/common
+	url = https://gitlab.com/autowarefoundation/autoware.ai/common
+[submodule "src/autoware.ai/messages"]
+	path = src/autoware.ai/messages
+	url = https://gitlab.com/autowarefoundation/autoware.ai/messages
