@@ -1,12 +1,12 @@
-[submodule "src/autoware.ai/common"]
-	path = src/autoware.ai/common
+[submodule "src/third_party/autoware.ai/common"]
+	path = src/third_party/autoware.ai/common
 	url = https://gitlab.com/autowarefoundation/autoware.ai/common
-[submodule "src/autoware.ai/messages"]
-	path = src/autoware.ai/messages
+[submodule "src/third_party/autoware.ai/messages"]
+	path = src/third_party/autoware.ai/messages
 	url = https://gitlab.com/autowarefoundation/autoware.ai/messages
-[submodule "src/autoware.ai/visualization"]
-	path = src/autoware.ai/visualization
+[submodule "src/third_party/autoware.ai/visualization"]
+	path = src/third_party/autoware.ai/visualization
 	url = https://gitlab.com/autowarefoundation/autoware.ai/visualization
-[submodule "src/zmq_image_detection/src/zmq_server/yolo_e1"]
-	path = src/zmq_image_detection/src/zmq_server/yolo_e1
+[submodule "src/third_party/yolo"]
+	path = src/third_party/yolo
 	url = https://github.com/eriklindernoren/PyTorch-YOLOv3

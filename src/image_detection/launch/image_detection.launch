@@ -1,0 +1,6 @@
+<!-- Remember to: ROS_NAMESPACE=/usb_camX python3.6 server.py -->
+<launch>
+  <arg name="image_src_topic" default="/image_raw"/>
+  <node name="image_detection" pkg="image_detection" type="image_detection_handler" required="true" args="$(arg image_src_topic)" output="screen" ns="$(env ROS_NAMESPACE)"/>
+  <node name="detected_objects_visualizer" pkg="detected_objects_visualizer" type="visualize_rects" required="true" args="$(arg image_src_topic)" output="screen" ns="$(env ROS_NAMESPACE)"/>
+</launch>
