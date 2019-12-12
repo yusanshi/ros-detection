@@ -1,4 +1,4 @@
-# ZMQ Image Detection
+# Image Detection
 
 ```
 cd /path/to/project_root

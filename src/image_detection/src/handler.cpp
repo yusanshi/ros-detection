@@ -3,9 +3,9 @@
 #include <chrono>
 #include <opencv2/highgui/highgui.hpp>
 #include <zmq.hpp>
-#include "/home/yu/catkin_ws/src/third_party/nlohmann/json.hpp"
 #include "autoware_msgs/DetectedObject.h"
 #include "autoware_msgs/DetectedObjectArray.h"
+#include "json.hpp"
 #include "ros/ros.h"
 
 class ImageDetectionHandler {

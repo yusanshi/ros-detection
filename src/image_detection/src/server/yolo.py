@@ -118,12 +118,16 @@ class Yolo:
         return result
 
     def size_scale(self, height, width):
-        average = (height + width) / 2
-        if average < 416:
-            result = average
-        else:
-            result = 416 + 300 * math.tanh((average - 416) / 500.0)
-        return int(result)
+        # TODO: If use other size, got RuntimeError: invalid argument 0: Sizes of tensors must match except ...
+        # don't know why
+
+        # average = max(height, width)
+        # if average < 416:
+        #     result = average
+        # else:
+        #     result = 416 + 300 * math.tanh((average - 416) / 500.0)
+        # return int(result)
+        return 416
 
     def display(self, np_array, detections):
         # Bounding-box colors

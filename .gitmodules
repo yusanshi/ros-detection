@@ -10,3 +10,9 @@
 [submodule "src/third_party/yolo"]
 	path = src/third_party/yolo
 	url = https://github.com/eriklindernoren/PyTorch-YOLOv3
+[submodule "src/third_party/autoware.ai/core_perception"]
+	path = src/third_party/autoware.ai/core_perception
+	url = https://gitlab.com/autowarefoundation/autoware.ai/core_perception
+[submodule "src/third_party/kitti_pretrained_point_pillars"]
+	path = src/third_party/kitti_pretrained_point_pillars
+	url = https://github.com/k0suke-murakami/kitti_pretrained_point_pillars
