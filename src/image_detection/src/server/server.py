@@ -8,12 +8,11 @@ from yolo import Yolo
 
 
 def server():
-    if 'ROS_NAMESPACE' not in os.environ:
-        sys.exit('ROS_NAMESPACE not set.')
+    if 'IPC_FILE_PATH' not in os.environ:
+        sys.exit(
+            'IPC_FILE_PATH not set.\nExample: IPC_FILE_PATH=/tmp/example.ipc python3 server.py')
 
-    ros_namespace = os.environ['ROS_NAMESPACE']
-    ros_namespace = '/' + ros_namespace.replace('/', '')
-    ipc_file_path = '/tmp' + ros_namespace + '.ipc'
+    ipc_file_path = os.environ['IPC_FILE_PATH']
     yolo = Yolo()
     context = zmq.Context()
     socket = context.socket(zmq.REP)

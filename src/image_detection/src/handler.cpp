@@ -10,43 +10,24 @@
 
 class ImageDetectionHandler {
    public:
-    ImageDetectionHandler(std::string image_src_topic) {
-        ros_namespace_ = ros::this_node::getNamespace();
-
-        std::string ipc_file_path = ros_namespace_;
-        ipc_file_path.erase(
-            std::remove(ipc_file_path.begin(), ipc_file_path.end(), '/'),
-            ipc_file_path.end());
-        ipc_file_path = "/tmp/" + ipc_file_path + ".ipc";
-
-        if (ros_namespace_.substr(0, 2) == "//") {
-            ros_namespace_.erase(ros_namespace_.begin());
-        }
-
-        if (image_src_topic.substr(0, 1) != "/") {
-            image_src_topic = "/" + image_src_topic;
-        }
-
-        image_src_topic = ros_namespace_ + image_src_topic;
-        std::string detection_output_topic = ros_namespace_ + "/objects";
-
-        sub_ = nh_.subscribe(image_src_topic, 1,
-                             &ImageDetectionHandler::callback, this);
-        pub_ = nh_.advertise<autoware_msgs::DetectedObjectArray>(
-            detection_output_topic, 1);
-
+    ImageDetectionHandler() {
+        ros::NodeHandle private_nh_("~");
+        std::string image_src_str = "/input_image";
+        std::string object_output_str = "/output_objects";
+        subscriber_ = node_handle_.subscribe(
+            image_src_str, 1, &ImageDetectionHandler::callback, this);
+        publisher_ = node_handle_.advertise<autoware_msgs::DetectedObjectArray>(
+            object_output_str, 1);
+        std::string ipc_file_path;
+        private_nh_.param<std::string>("ipc_file_path", ipc_file_path,
+                                       "/tmp/example.ipc");
         zmq_ctx_ = std::unique_ptr<zmq::context_t>(new zmq::context_t(1));
         zmq_sock_ = std::unique_ptr<zmq::socket_t>(
             new zmq::socket_t(*zmq_ctx_, ZMQ_REQ));
 
         zmq_sock_.get()->connect("ipc://" +
                                  ipc_file_path);  // TODO what if remove get()?
-
-        ROS_INFO(
-            "Detection result of topic %s is being published to topic %s, "
-            "using ZMQ ipc://%s",
-            image_src_topic.c_str(), detection_output_topic.c_str(),
-            ipc_file_path.c_str());
+        ROS_INFO("Connected to %s", ipc_file_path.c_str());
     }
 
     static void dummy_free(void* data, void* hint) {
@@ -96,7 +77,7 @@ class ImageDetectionHandler {
             obj.valid = true;
             result.objects.push_back(obj);
         }
-        pub_.publish(result);
+        publisher_.publish(result);
         std::chrono::steady_clock::time_point end =
             std::chrono::steady_clock::now();
         ROS_INFO(
@@ -108,22 +89,16 @@ class ImageDetectionHandler {
     }
 
    private:
-    std::string ros_namespace_;
-    ros::NodeHandle nh_;
-    ros::Publisher pub_;
-    ros::Subscriber sub_;
+    ros::NodeHandle node_handle_;
+    ros::Publisher publisher_;
+    ros::Subscriber subscriber_;
     std::unique_ptr<zmq::context_t> zmq_ctx_;
     std::unique_ptr<zmq::socket_t> zmq_sock_;
 };
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "image_detection_handler");
-    if (argc != 2) {
-        ROS_ERROR("Usage: image_detection_handler <image topic>");
-        return 1;
-    }
-
-    ImageDetectionHandler handler(std::string{argv[1]});
+    ImageDetectionHandler handler;
     ros::spin();
 
     return 0;

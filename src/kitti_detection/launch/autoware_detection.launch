@@ -10,6 +10,10 @@
   <arg name="output_lidar_objects" default="/detection/lidar_objects" />
   <arg name="output_image_objects" default="/detection/image_objects" />
   <arg name="output_fused_objects" default="/detection/fused_objects" />
+  <!-- [BEGIN] Unnecessory -->
+  <arg name="output_image_rects" default="/detection/image_rects" />
+  <arg name="output_lidar_objects_markers" default="/detection/lidar_objects_markers" />
+  <!-- [END] Unnecessory -->
   <arg name="output_fused_objects_markers" default="/detection/fused_objects_markers" />
   <!-- [END] Output -->
   <!-- [BEGIN] For lidar_point_pillars -->
@@ -72,10 +76,22 @@
     <param name="overlap_threshold" value="$(arg overlap_threshold)" />
   </node>
 
-  <node pkg="detected_objects_visualizer" type="visualize_detected_objects" name="point_pillars_visualization_01"
+  <node pkg="detected_objects_visualizer" type="visualize_detected_objects" name="range_vision_fusion_visualizer"
     output="screen">
     <remap from="/input_objects" to="$(arg output_fused_objects)" />
     <remap from="/output_objects_markers" to="$(arg output_fused_objects_markers)" />
   </node>
 
+  <!-- [BEGIN] Unnecessory -->
+  <node pkg="detected_objects_visualizer" type="visualize_rects" name="darknet_detect_visualizer" output="screen">
+    <remap from="/input_objects" to="$(arg output_image_objects)" />
+    <remap from="/input_image" to="$(arg input_image)" />
+    <remap from="/output_image" to="$(arg output_image_rects)" />
+  </node>
+  <node pkg="detected_objects_visualizer" type="visualize_detected_objects" name="lidar_point_pillars_visualizer"
+    output="screen">
+    <remap from="/input_objects" to="$(arg output_lidar_objects)" />
+    <remap from="/output_objects_markers" to="$(arg output_lidar_objects_markers)" />
+  </node>
+  <!-- [END] Unnecessory -->
 </launch>

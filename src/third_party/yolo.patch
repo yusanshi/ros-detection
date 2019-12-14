@@ -1,0 +1,13 @@
+diff --git a/.gitignore b/.gitignore
+index 3801735..ff87a91 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -7,6 +7,7 @@ dist
+ output
+ data/coco
+ backup
+-weights/*.weights
++!weights/download_weights.sh
++weights/*
+ __pycache__
+ checkpoints

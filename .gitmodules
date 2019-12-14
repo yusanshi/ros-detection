@@ -16,3 +16,6 @@
 [submodule "src/third_party/kitti_pretrained_point_pillars"]
 	path = src/third_party/kitti_pretrained_point_pillars
 	url = https://github.com/k0suke-murakami/kitti_pretrained_point_pillars
+[submodule "utils"]
+	path = utils
+	url = https://github.com/yusanshi/utils
