@@ -21,8 +21,10 @@ RUN apt update && apt install -y \
 RUN rosdep init && rosdep update
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc \
     && source ~/.bashrc
-# TODO: downloading need authentication
-RUN wget https://developer.nvidia.com/compute/machine-learning/tensorrt/secure/6.0/GA_6.0.1.5/local_repos/nv-tensorrt-repo-ubuntu1604-cuda10.0-trt6.0.1.5-ga-20190913_1-1_amd64.deb \
+# TODO: download address
+# https://developer.nvidia.com/compute/machine-learning/tensorrt/secure/6.0/GA_6.0.1.5/local_repos/nv-tensorrt-repo-ubuntu1604-cuda10.0-trt6.0.1.5-ga-20190913_1-1_amd64.deb
+
+RUN wget https://yun.yusanshi.com/nv-tensorrt-repo-ubuntu1604-cuda10.0-trt6.0.1.5-ga-20190913_1-1_amd64.deb \
     && dpkg -i nv-tensorrt-repo-ubuntu1604-cuda10.0-trt6.0.1.5-ga-20190913_1-1_amd64.deb \
     && apt-key add /var/nv-tensorrt-repo-cuda10.0-trt6.0.1.5-ga-20190913/7fa2af80.pub \
     && apt update \

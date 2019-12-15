@@ -1534,13 +1534,25 @@ index bc46c80..9122c9e 100644
  }
 \ No newline at end of file
 diff --git a/vision_darknet_detect/.gitignore b/vision_darknet_detect/.gitignore
-index 0d1adb3..6bc4018 100644
+index 0d1adb3..3a47477 100644
 --- a/vision_darknet_detect/.gitignore
 +++ b/vision_darknet_detect/.gitignore
-@@ -1 +1,2 @@
-+!darknet/data/download_weights.sh
- darknet/data/*
+@@ -1 +1 @@
+-darknet/data/*
 \ No newline at end of file
++*.weights
+\ No newline at end of file
+diff --git a/vision_darknet_detect/darknet/data/download_weights.sh b/vision_darknet_detect/darknet/data/download_weights.sh
+new file mode 100644
+index 0000000..3646651
+--- /dev/null
++++ b/vision_darknet_detect/darknet/data/download_weights.sh
+@@ -0,0 +1,5 @@
++#!/bin/bash
++# Download weights for vanilla YOLOv3
++wget -c https://pjreddie.com/media/files/yolov3.weights
++# # Download weights for tiny YOLOv3
++wget -c https://pjreddie.com/media/files/yolov3-tiny.weights
 diff --git a/vision_darknet_detect/interface.yaml b/vision_darknet_detect/interface.yaml
 index 7a1b3c4..370cf69 100644
 --- a/vision_darknet_detect/interface.yaml
