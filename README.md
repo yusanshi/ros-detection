@@ -6,6 +6,8 @@
 
 [KITTI Detection](./src/kitti_detection)
 
+[LINKE Detection](./src/linke_detection)
+
 ```
 git clone --recursive https://github.com/yusanshi/ros_package
 cd ros_package

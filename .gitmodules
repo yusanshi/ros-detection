@@ -19,3 +19,6 @@
 [submodule "utils"]
 	path = utils
 	url = https://github.com/yusanshi/utils
+[submodule "src/third_party/autoware.ai/utilities"]
+	path = src/third_party/autoware.ai/utilities
+	url = https://gitlab.com/autowarefoundation/autoware.ai/utilities

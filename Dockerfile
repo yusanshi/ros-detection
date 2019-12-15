@@ -1,5 +1,3 @@
-# TODO: Not finished yet!
-
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
 RUN apt update && apt install -y lsb-release
@@ -36,5 +34,3 @@ RUN git clone git@github.com:yusanshi/ros_package.git --recursive \
 RUN AUTOWARE_COMPILE_WITH_CUDA=1 catkin_make --force-cmake --only-pkg-with-deps image_detection detected_objects_visualizer pixel_cloud_fusion range_vision_fusion lidar_point_pillars
 RUN echo "source ~/ros_package/devel/setup.bash" >> ~/.bashrc \
     && source ~/.bashrc
-
-# TODO: Not finished yet!
