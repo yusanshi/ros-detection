@@ -9,4 +9,6 @@ bash download_weights.sh
 
 cd /path/to/project_root
 PROJECT_ROOT=`pwd` roslaunch linke_detection detection.launch
+
+Open rviz, load `default.rviz` to visualize.
 ```
